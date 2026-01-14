@@ -93,21 +93,61 @@ export const formatTime = (date: Date | string): string => {
   return format(d, 'HH:mm');
 };
 
-// Number utilities
+/**
+ * Format a number as percentage
+ * 
+ * @param value - Number to format (0-100)
+ * @returns Percentage string with % symbol
+ * 
+ * @example
+ * ```tsx
+ * formatPercentage(72.5) // Returns: "73%"
+ * ```
+ */
 export const formatPercentage = (value: number): string => {
   return `${Math.round(value)}%`;
 };
 
+/**
+ * Format a number with thousands separators
+ * 
+ * @param value - Number to format
+ * @returns Formatted number string
+ * 
+ * @example
+ * ```tsx
+ * formatNumber(1234567) // Returns: "1,234,567"
+ * ```
+ */
 export const formatNumber = (value: number): string => {
   return new Intl.NumberFormat('en-US').format(value);
 };
 
-// Random ID generator
+/**
+ * Generate a unique ID using timestamp and random string
+ * 
+ * @returns Unique identifier string
+ * 
+ * @example
+ * ```tsx
+ * generateId() // Returns: "lh3j9k2-a8b9c0d"
+ * ```
+ */
 export const generateId = (): string => {
   return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 9)}`;
 };
 
-// Color utilities for dream types
+/**
+ * Get color for a dream type
+ * 
+ * @param type - Dream type identifier
+ * @returns Hex color code
+ * 
+ * @example
+ * ```tsx
+ * getDreamTypeColor('lucid') // Returns: "#FFD700"
+ * ```
+ */
 export const getDreamTypeColor = (type: string): string => {
   const colors: Record<string, string> = {
     normal: '#D4AF37',
@@ -120,7 +160,17 @@ export const getDreamTypeColor = (type: string): string => {
   return colors[type] || colors.normal;
 };
 
-// Emotion to color mapping
+/**
+ * Get color for an emotion type
+ * 
+ * @param emotion - Emotion identifier
+ * @returns Hex color code
+ * 
+ * @example
+ * ```tsx
+ * getEmotionColor('joy') // Returns: "#FFD700"
+ * ```
+ */
 export const getEmotionColor = (emotion: string): string => {
   const colors: Record<string, string> = {
     joy: '#FFD700',
@@ -135,18 +185,49 @@ export const getEmotionColor = (emotion: string): string => {
   return colors[emotion] || colors.neutral;
 };
 
-// Truncate text
+/**
+ * Truncate text to a maximum length with ellipsis
+ * 
+ * @param text - Text to truncate
+ * @param length - Maximum length
+ * @returns Truncated text with "..." if needed
+ * 
+ * @example
+ * ```tsx
+ * truncate('Long dream description here', 10) // Returns: "Long dream..."
+ * ```
+ */
 export const truncate = (text: string, length: number): string => {
   if (text.length <= length) return text;
   return text.slice(0, length).trim() + '...';
 };
 
-// Capitalize first letter
+/**
+ * Capitalize the first letter of a string
+ * 
+ * @param str - String to capitalize
+ * @returns String with first letter capitalized
+ * 
+ * @example
+ * ```tsx
+ * capitalize('lucid dream') // Returns: "Lucid dream"
+ * ```
+ */
 export const capitalize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-// Calculate lucidity level description
+/**
+ * Get descriptive label for lucidity level
+ * 
+ * @param lucidity - Lucidity percentage (0-100)
+ * @returns Descriptive label for the lucidity level
+ * 
+ * @example
+ * ```tsx
+ * getLucidityLevel(85) // Returns: "High Awareness"
+ * ```
+ */
 export const getLucidityLevel = (lucidity: number): string => {
   if (lucidity >= 90) return 'Full Control';
   if (lucidity >= 70) return 'High Awareness';
@@ -155,7 +236,17 @@ export const getLucidityLevel = (lucidity: number): string => {
   return 'Non-Lucid';
 };
 
-// Sleep quality description
+/**
+ * Get descriptive label for sleep quality score
+ * 
+ * @param quality - Sleep quality score (0-100)
+ * @returns Descriptive label for the quality level
+ * 
+ * @example
+ * ```tsx
+ * getSleepQualityLabel(88) // Returns: "Good"
+ * ```
+ */
 export const getSleepQualityLabel = (quality: number): string => {
   if (quality >= 90) return 'Excellent';
   if (quality >= 70) return 'Good';
