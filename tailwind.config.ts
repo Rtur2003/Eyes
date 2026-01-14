@@ -13,39 +13,45 @@ const config: Config = {
           100: '#F5EED9',
           200: '#EAD8AA',
           300: '#DFC27A',
-          400: '#D4AF37', // Primary Gold
+          400: '#D4AF37', // Base Gold
           500: '#B5952F',
           600: '#967C27',
           700: '#78621F',
           800: '#5A4917',
           900: '#3C310F',
-        },
-        bronze: {
-          400: '#CD7F32',
-          900: '#4B2E12',
+          DEFAULT: '#D4AF37',
         },
         obsidian: {
           DEFAULT: '#050505',
           card: '#0A0A0A',
-          border: '#1A1A1A',
+          border: '#1F1F1F',
+          surface: '#121212',
         },
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gold-sheen': 'linear-gradient(135deg, #996515 0%, #D4AF37 50%, #F9E076 100%)',
       },
       fontFamily: {
         sans: ['var(--font-orbitron)', 'sans-serif'],
         serif: ['var(--font-cinzel)', 'serif'],
       },
+      backgroundImage: {
+        'gradient-gold': 'linear-gradient(135deg, #D4AF37 0%, #F9E076 50%, #D4AF37 100%)',
+        'gradient-dark': 'radial-gradient(circle at center, #1a1a1a 0%, #050505 100%)',
+      },
+      boxShadow: {
+        'glow-gold': '0 0 20px -5px rgba(212, 175, 55, 0.3)',
+        'glow-subtle': '0 0 10px -5px rgba(212, 175, 55, 0.1)',
+      },
       animation: {
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
         }
       }
     },
