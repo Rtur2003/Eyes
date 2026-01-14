@@ -171,16 +171,29 @@ export function Tooltip({ children, content, position = 'top' }: TooltipProps) {
   );
 }
 
-// Alert Component
+/**
+ * Props for the Alert component
+ * @interface AlertProps
+ */
 interface AlertProps {
+  /** Optional title for the alert */
   title?: string;
+  /** Alert message content */
   children: React.ReactNode;
+  /** Visual variant indicating severity/type */
   variant?: 'info' | 'success' | 'warning' | 'error';
+  /** Show dismiss button */
   dismissible?: boolean;
+  /** Callback when dismiss button is clicked */
   onDismiss?: () => void;
+  /** Additional CSS classes */
   className?: string;
 }
 
+/**
+ * Alert variant configurations
+ * Maps variant names to container styles and icons
+ */
 const alertVariants = {
   info: {
     container: 'bg-gold-500/10 border-gold-500/20 text-gold-200',
@@ -200,6 +213,29 @@ const alertVariants = {
   },
 };
 
+/**
+ * Alert - A notification banner component for important messages
+ * 
+ * Features:
+ * - Four semantic variants (info, success, warning, error)
+ * - Contextual icons for each variant
+ * - Optional title and dismissible button
+ * - Smooth fade-in animation
+ * - Color-coded backgrounds and borders
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Alert 
+ *   variant="success" 
+ *   title="Dream Saved"
+ *   dismissible
+ *   onDismiss={() => closeAlert()}
+ * >
+ *   Your dream has been successfully recorded.
+ * </Alert>
+ * ```
+ */
 export function Alert({
   title,
   children,
@@ -238,7 +274,18 @@ export function Alert({
   );
 }
 
-// Skeleton Loader
+/**
+ * Skeleton - A loading placeholder component
+ * 
+ * Displays an animated placeholder while content is loading.
+ * Uses pulse animation for visual feedback.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Skeleton className="h-20 w-full rounded-lg" />
+ * ```
+ */
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div
@@ -250,7 +297,22 @@ export function Skeleton({ className }: { className?: string }) {
   );
 }
 
-// Divider
+/**
+ * Divider - A visual separator component
+ * 
+ * Features:
+ * - Horizontal or vertical orientation
+ * - Optional gradient effect
+ * - Subtle gold color theme
+ * - Flexible sizing with className
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Divider gradient />
+ * <Divider vertical className="h-12" />
+ * ```
+ */
 export function Divider({ 
   className, 
   vertical = false,
@@ -287,7 +349,26 @@ export function Divider({
   );
 }
 
-// Empty State
+/**
+ * EmptyState - A placeholder for empty data states
+ * 
+ * Features:
+ * - Optional icon display
+ * - Title and description text
+ * - Call-to-action button slot
+ * - Centered layout for visual balance
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <EmptyState
+ *   icon={Moon}
+ *   title="No Dreams Yet"
+ *   description="Start recording your dreams to see them here"
+ *   action={<CyberButton>Add Dream</CyberButton>}
+ * />
+ * ```
+ */
 export function EmptyState({
   icon: Icon,
   title,
