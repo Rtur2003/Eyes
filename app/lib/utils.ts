@@ -2,12 +2,34 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { format, formatDistanceToNow, parseISO, isToday, isYesterday, isThisWeek } from "date-fns";
 
-// Class name utility
+/**
+ * Utility function to merge Tailwind CSS classes
+ * Combines clsx and tailwind-merge for conflict-free class names
+ * 
+ * @param inputs - Array of class values to merge
+ * @returns Merged class string with Tailwind conflicts resolved
+ * 
+ * @example
+ * ```tsx
+ * cn('px-4 py-2', 'px-6', 'bg-gold-500') // Returns: 'px-6 py-2 bg-gold-500'
+ * ```
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Currency formatting (kept for compatibility)
+/**
+ * Format a number as USD currency
+ * Legacy function kept for compatibility
+ * 
+ * @param value - Number to format
+ * @returns Formatted currency string (e.g., "$1,234")
+ * 
+ * @example
+ * ```tsx
+ * formatCurrency(1234.56) // Returns: "$1,235"
+ * ```
+ */
 export const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -16,7 +38,19 @@ export const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-// Date formatting utilities
+/**
+ * Format a date for dream entries with contextual labels
+ * Shows "Today", "Yesterday", day name for this week, or full date
+ * 
+ * @param date - Date to format (Date object or ISO string)
+ * @returns User-friendly date string
+ * 
+ * @example
+ * ```tsx
+ * formatDreamDate(new Date()) // Returns: "Today"
+ * formatDreamDate('2025-01-10') // Returns: "Jan 10, 2025"
+ * ```
+ */
 export const formatDreamDate = (date: Date | string): string => {
   const d = typeof date === 'string' ? parseISO(date) : date;
   
@@ -27,11 +61,33 @@ export const formatDreamDate = (date: Date | string): string => {
   return format(d, 'MMM d, yyyy');
 };
 
+/**
+ * Format a date as relative time from now
+ * 
+ * @param date - Date to format (Date object or ISO string)
+ * @returns Relative time string (e.g., "2 hours ago", "in 3 days")
+ * 
+ * @example
+ * ```tsx
+ * formatRelativeTime(yesterday) // Returns: "1 day ago"
+ * ```
+ */
 export const formatRelativeTime = (date: Date | string): string => {
   const d = typeof date === 'string' ? parseISO(date) : date;
   return formatDistanceToNow(d, { addSuffix: true });
 };
 
+/**
+ * Format a date as time string (HH:mm format)
+ * 
+ * @param date - Date to format (Date object or ISO string)
+ * @returns Time string in 24-hour format
+ * 
+ * @example
+ * ```tsx
+ * formatTime(new Date()) // Returns: "14:30"
+ * ```
+ */
 export const formatTime = (date: Date | string): string => {
   const d = typeof date === 'string' ? parseISO(date) : date;
   return format(d, 'HH:mm');
