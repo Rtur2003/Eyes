@@ -5,15 +5,47 @@ import { motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useState, forwardRef } from "react";
 
-// Text Input
+/**
+ * Props for the Input component
+ * @interface InputProps
+ * @extends {React.InputHTMLAttributes<HTMLInputElement>}
+ */
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  /** Optional label displayed above the input */
   label?: string;
+  /** Error message to display below input */
   error?: string;
+  /** Hint text displayed below input when no error */
   hint?: string;
+  /** Icon displayed on the left side */
   leftIcon?: React.ReactNode;
+  /** Icon displayed on the right side */
   rightIcon?: React.ReactNode;
 }
 
+/**
+ * Input - A styled text input component
+ * 
+ * Features:
+ * - Optional label, error, and hint text
+ * - Support for left and right icons
+ * - Focus and hover states with gold theme
+ * - Error state styling
+ * - Smooth transitions
+ * - Glass-morphism background
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Input
+ *   label="Dream Title"
+ *   placeholder="Enter a title..."
+ *   leftIcon={<Sparkles size={16} />}
+ *   error={errors.title}
+ *   hint="Give your dream a memorable name"
+ * />
+ * ```
+ */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, hint, leftIcon, rightIcon, ...props }, ref) => {
     return (
@@ -59,7 +91,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = "Input";
 
-// Search Input
+/**
+ * SearchInput - A specialized input for search functionality
+ * 
+ * Features:
+ * - Dedicated search icon on the left
+ * - Clear button when input has value
+ * - Optimized for search UX
+ * - Gold-themed styling
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <SearchInput
+ *   value={searchQuery}
+ *   onChange={setSearchQuery}
+ *   onClear={() => setSearchQuery('')}
+ *   placeholder="Search dreams..."
+ * />
+ * ```
+ */
 export function SearchInput({
   value,
   onChange,
