@@ -3,29 +3,70 @@
 import { cn } from "@/app/lib/utils";
 import { motion } from "framer-motion";
 
+/**
+ * Props for the ProgressBar component
+ * @interface ProgressBarProps
+ */
 interface ProgressBarProps {
+  /** Current progress value */
   value: number;
+  /** Maximum value (defaults to 100) */
   max?: number;
+  /** Optional label to display above the bar */
   label?: string;
+  /** Show percentage value */
   showPercentage?: boolean;
+  /** Color variant of the progress bar */
   variant?: 'gold' | 'bronze' | 'gradient';
+  /** Size of the progress bar */
   size?: 'sm' | 'md' | 'lg';
+  /** Enable fill animation on mount */
   animated?: boolean;
+  /** Additional CSS classes */
   className?: string;
 }
 
+/**
+ * Size variants for the progress bar
+ * Defines height for different sizes
+ */
 const sizeClasses = {
   sm: 'h-1',
   md: 'h-2',
   lg: 'h-3',
 };
 
+/**
+ * Color variants for the progress bar
+ * Uses gradient backgrounds for visual appeal
+ */
 const variantClasses = {
   gold: 'bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600',
   bronze: 'bg-gradient-to-r from-bronze-600 via-bronze-400 to-bronze-600',
   gradient: 'bg-gradient-to-r from-gold-600 via-gold-300 to-bronze-400',
 };
 
+/**
+ * ProgressBar - Linear progress indicator component
+ * 
+ * Features:
+ * - Animated fill from 0 to target percentage
+ * - Multiple color variants (gold, bronze, gradient)
+ * - Three size options (sm, md, lg)
+ * - Optional label and percentage display
+ * - Smooth easing animation
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <ProgressBar 
+ *   value={72} 
+ *   label="Lucid Mastery" 
+ *   showPercentage 
+ *   variant="gold"
+ * />
+ * ```
+ */
 export function ProgressBar({
   value,
   max = 100,
@@ -66,7 +107,31 @@ export function ProgressBar({
   );
 }
 
-// Circular Progress
+/**
+ * CircularProgress - Circular progress indicator component
+ * 
+ * Displays progress as a circular ring with animated fill.
+ * Ideal for compact spaces and dashboard widgets.
+ * 
+ * Features:
+ * - SVG-based circular progress ring
+ * - Animated stroke dashoffset for smooth fill
+ * - Gold gradient stroke color
+ * - Centered percentage and label display
+ * - Customizable size and stroke width
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <CircularProgress 
+ *   value={85} 
+ *   size={120} 
+ *   strokeWidth={10}
+ *   label="Sleep Quality"
+ *   showValue
+ * />
+ * ```
+ */
 export function CircularProgress({
   value,
   max = 100,
