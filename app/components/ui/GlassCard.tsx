@@ -4,15 +4,30 @@ import { cn } from "@/app/lib/utils";
 import { ReactNode } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 
+/**
+ * Props for the GlassCard component
+ * @interface GlassCardProps
+ * @extends {Omit<HTMLMotionProps<"div">, 'children'>}
+ */
 interface GlassCardProps extends Omit<HTMLMotionProps<"div">, 'children'> {
+  /** Content to be rendered inside the card */
   children: ReactNode;
+  /** Additional CSS classes to apply */
   className?: string;
+  /** Enable hover scale and glow effects */
   hoverEffect?: boolean;
+  /** Enable pulsing glow animation */
   glowEffect?: boolean;
+  /** Animation delay in seconds */
   delay?: number;
+  /** Visual style variant of the card */
   variant?: 'default' | 'bordered' | 'glow' | 'neural';
 }
 
+/**
+ * Visual style variants for the GlassCard component
+ * Each variant provides different border, background, and shadow combinations
+ */
 const variants = {
   default: "border-white/5 bg-obsidian-card/40",
   bordered: "border-gold-500/20 bg-obsidian-card/30",
@@ -20,6 +35,25 @@ const variants = {
   neural: "border-gold-500/10 bg-obsidian-card/20 backdrop-blur-lg",
 };
 
+/**
+ * GlassCard - A glass-morphism styled card component with animations
+ * 
+ * Features:
+ * - Multiple visual variants (default, bordered, glow, neural)
+ * - Smooth fade-in animation on mount
+ * - Optional hover effects with scale and glow
+ * - Gradient overlays and corner accents
+ * - Backdrop blur for depth effect
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <GlassCard variant="glow" hoverEffect delay={0.2}>
+ *   <h2>Dream Entry</h2>
+ *   <p>Your dream content...</p>
+ * </GlassCard>
+ * ```
+ */
 export function GlassCard({ 
   children, 
   className, 
@@ -62,7 +96,24 @@ export function GlassCard({
   );
 }
 
-// Stat Card variant
+/**
+ * StatCard - A specialized card for displaying statistics
+ * 
+ * Displays a metric with label, value, optional icon, and trend indicator.
+ * Features hover effects and smooth animations.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <StatCard 
+ *   label="Total Dreams" 
+ *   value={247} 
+ *   icon={Brain} 
+ *   trend={12}
+ *   delay={0.1}
+ * />
+ * ```
+ */
 export function StatCard({ 
   label, 
   value, 
@@ -100,7 +151,24 @@ export function StatCard({
   );
 }
 
-// Feature Card variant
+/**
+ * FeatureCard - A card component for showcasing features
+ * 
+ * Displays a feature with icon, title, and description.
+ * Includes interactive hover effects and optional click handler.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <FeatureCard
+ *   title="Dream Journal"
+ *   description="Record and analyze your dreams"
+ *   icon={BookOpen}
+ *   onClick={() => navigate('/journal')}
+ *   delay={0.3}
+ * />
+ * ```
+ */
 export function FeatureCard({
   title,
   description,
