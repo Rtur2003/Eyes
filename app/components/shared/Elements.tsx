@@ -5,17 +5,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, AlertTriangle, CheckCircle, Info, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
-// Badge Component
+/**
+ * Props for the Badge component
+ * @interface BadgeProps
+ */
 interface BadgeProps {
+  /** Content to display inside the badge */
   children: React.ReactNode;
+  /** Color variant of the badge */
   variant?: 'gold' | 'bronze' | 'neutral' | 'success' | 'warning' | 'danger' | 'lucid';
+  /** Size of the badge */
   size?: 'sm' | 'md';
+  /** Show remove button */
   removable?: boolean;
+  /** Callback when remove button is clicked */
   onRemove?: () => void;
+  /** Additional CSS classes */
   className?: string;
+  /** Inline styles for custom colors */
   style?: React.CSSProperties;
 }
 
+/**
+ * Color variants for badges
+ * Maps variant names to Tailwind CSS classes
+ */
 const badgeVariants = {
   gold: 'bg-gold-500/10 text-gold-400 border-gold-500/20',
   bronze: 'bg-bronze-500/10 text-bronze-400 border-bronze-500/20',
@@ -26,6 +40,24 @@ const badgeVariants = {
   lucid: 'bg-gradient-to-r from-gold-500/20 to-bronze-500/20 text-gold-300 border-gold-500/30',
 };
 
+/**
+ * Badge - A small label component for tags and categories
+ * 
+ * Features:
+ * - Multiple color variants
+ * - Two size options (sm, md)
+ * - Optional remove button
+ * - Support for custom inline styles
+ * - Pill-shaped design with rounded corners
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Badge variant="lucid" removable onRemove={() => removeTag('flying')}>
+ *   Flying
+ * </Badge>
+ * ```
+ */
 export function Badge({
   children,
   variant = 'gold',
@@ -58,13 +90,23 @@ export function Badge({
   );
 }
 
-// Tooltip Component
+/**
+ * Props for the Tooltip component
+ * @interface TooltipProps
+ */
 interface TooltipProps {
+  /** Element that triggers the tooltip */
   children: React.ReactNode;
+  /** Tooltip text content */
   content: string;
+  /** Position of the tooltip relative to trigger */
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
+/**
+ * Position classes for tooltip placement
+ * Uses Tailwind translate utilities for precise positioning
+ */
 const tooltipPositions = {
   top: '-top-2 left-1/2 -translate-x-1/2 -translate-y-full',
   bottom: '-bottom-2 left-1/2 -translate-x-1/2 translate-y-full',
@@ -72,6 +114,24 @@ const tooltipPositions = {
   right: 'top-1/2 -right-2 translate-x-full -translate-y-1/2',
 };
 
+/**
+ * Tooltip - A hover-triggered contextual information component
+ * 
+ * Features:
+ * - Appears on hover
+ * - Smooth fade and scale animation
+ * - Four position options (top, bottom, left, right)
+ * - Arrow pointer to trigger element
+ * - Auto-hides when mouse leaves
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Tooltip content="Save your dream entry" position="top">
+ *   <button>Save</button>
+ * </Tooltip>
+ * ```
+ */
 export function Tooltip({ children, content, position = 'top' }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
 
