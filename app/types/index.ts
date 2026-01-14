@@ -40,10 +40,6 @@ export interface DreamTag {
  * Complete dream journal entry
  * @interface DreamEntry
  */
-/**
- * Complete dream journal entry
- * @interface DreamEntry
- */
 export interface DreamEntry {
   /** Unique identifier */
   id: string;
@@ -85,10 +81,6 @@ export interface DreamEntry {
  * Aggregated dream statistics
  * @interface DreamStats
  */
-/**
- * Aggregated dream statistics
- * @interface DreamStats
- */
 export interface DreamStats {
   /** Total number of dreams recorded */
   totalDreams: number;
@@ -112,10 +104,6 @@ export interface DreamStats {
   monthlyTrend: { month: string; lucid: number; normal: number }[];
 }
 
-/**
- * Identified pattern in dream content
- * @interface DreamPattern
- */
 /**
  * Identified pattern in dream content
  * @interface DreamPattern
@@ -160,10 +148,6 @@ export interface ConsciousnessNode {
  * User profile and preferences
  * @interface UserProfile
  */
-/**
- * User profile and preferences
- * @interface UserProfile
- */
 export interface UserProfile {
   /** Unique user identifier */
   id: string;
@@ -202,10 +186,6 @@ export interface UserPreferences {
  */
 export type NavSection = 'dashboard' | 'journal' | 'analytics' | 'consciousness' | 'timeline' | 'settings';
 
-/**
- * Props for animated card components
- * @interface AnimatedCardProps
- */
 /**
  * Props for animated card components
  * @interface AnimatedCardProps
