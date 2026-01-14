@@ -151,13 +151,42 @@ export function SearchInput({
   );
 }
 
-// Textarea
+/**
+ * Props for the Textarea component
+ * @interface TextareaProps
+ * @extends {React.TextareaHTMLAttributes<HTMLTextAreaElement>}
+ */
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Optional label displayed above the textarea */
   label?: string;
+  /** Error message to display below textarea */
   error?: string;
+  /** Hint text displayed below textarea when no error */
   hint?: string;
 }
 
+/**
+ * Textarea - A styled multi-line text input component
+ * 
+ * Features:
+ * - Multi-line text input
+ * - Optional label, error, and hint text
+ * - Minimum height of 120px
+ * - Resize disabled for consistent layout
+ * - Focus and hover states with gold theme
+ * - Error state styling
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Textarea
+ *   label="Dream Description"
+ *   placeholder="Describe your dream in detail..."
+ *   rows={6}
+ *   error={errors.description}
+ * />
+ * ```
+ */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, label, error, hint, ...props }, ref) => {
     return (
@@ -189,23 +218,63 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = "Textarea";
 
-// Select
+/**
+ * SelectOption - Type definition for select dropdown options
+ * @interface SelectOption
+ */
 interface SelectOption {
+  /** Value of the option */
   value: string;
+  /** Display label for the option */
   label: string;
+  /** Optional color for visual indication */
   color?: string;
 }
 
+/**
+ * Props for the Select component
+ * @interface SelectProps
+ */
 interface SelectProps {
+  /** Optional label displayed above the select */
   label?: string;
+  /** Array of selectable options */
   options: SelectOption[];
+  /** Currently selected value */
   value: string;
+  /** Callback when selection changes */
   onChange: (value: string) => void;
+  /** Placeholder text when no option is selected */
   placeholder?: string;
+  /** Error message to display */
   error?: string;
+  /** Additional CSS classes */
   className?: string;
 }
 
+/**
+ * Select - A custom styled dropdown select component
+ * 
+ * Features:
+ * - Custom dropdown with smooth animations
+ * - Optional color indicators for options
+ * - Keyboard accessible
+ * - Click outside to close
+ * - Gold-themed styling
+ * - Error state support
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Select
+ *   label="Dream Type"
+ *   value={dreamType}
+ *   onChange={setDreamType}
+ *   options={dreamTypeOptions}
+ *   placeholder="Select dream type..."
+ * />
+ * ```
+ */
 export function Select({
   label,
   options,
