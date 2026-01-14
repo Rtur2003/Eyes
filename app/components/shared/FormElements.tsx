@@ -48,10 +48,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, hint, leftIcon, rightIcon, ...props }, ref) => {
+    // Generate a unique ID if not provided for accessibility
+    const inputId = props.id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    const errorId = `${inputId}-error`;
+    const hintId = `${inputId}-hint`;
+    
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-xs font-sans uppercase tracking-widest text-gold-300/60 mb-2">
+          <label htmlFor={inputId} className="block text-xs font-sans uppercase tracking-widest text-gold-300/60 mb-2">
             {label}
           </label>
         )}
@@ -63,6 +68,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
+            id={inputId}
             className={cn(
               "w-full bg-obsidian-surface/50 border border-gold-500/20 rounded-lg",
               "px-4 py-3 text-gold-50 placeholder:text-gold-300/30",
@@ -75,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               className
             )}
             aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={error ? `${props.id}-error` : hint ? `${props.id}-hint` : undefined}
+            aria-describedby={error ? errorId : hint ? hintId : undefined}
             {...props}
           />
           {rightIcon && (
@@ -84,8 +90,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p id={`${props.id}-error`} className="mt-2 text-xs text-red-400" role="alert">{error}</p>}
-        {hint && !error && <p id={`${props.id}-hint`} className="mt-2 text-xs text-gold-300/50">{hint}</p>}
+        {error && <p id={errorId} className="mt-2 text-xs text-red-400" role="alert">{error}</p>}
+        {hint && !error && <p id={hintId} className="mt-2 text-xs text-gold-300/50">{hint}</p>}
       </div>
     );
   }
