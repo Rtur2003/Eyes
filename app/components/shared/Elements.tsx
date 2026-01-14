@@ -123,7 +123,7 @@ interface AlertProps {
 
 const alertVariants = {
   info: {
-    container: 'bg-blue-500/10 border-blue-500/20 text-blue-200',
+    container: 'bg-gold-500/10 border-gold-500/20 text-gold-200',
     icon: Info,
   },
   success: {

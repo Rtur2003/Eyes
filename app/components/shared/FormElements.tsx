@@ -261,10 +261,11 @@ export function TagInput({
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && inputValue.trim()) {
+    const trimmedValue = inputValue.trim();
+    if (e.key === "Enter" && trimmedValue) {
       e.preventDefault();
-      if (!tags.includes(inputValue.trim())) {
-        onAdd(inputValue.trim());
+      if (!tags.includes(trimmedValue)) {
+        onAdd(trimmedValue);
       }
       setInputValue("");
     }

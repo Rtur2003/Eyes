@@ -441,9 +441,12 @@ function DreamDetail({
             <h3 className="text-sm font-sans uppercase tracking-widest text-gold-400 mb-4 flex items-center gap-2">
               <Brain size={14} /> Neural Analysis
             </h3>
-            <p className="text-gold-200/80 text-sm leading-relaxed italic">
-              &quot;{dream.aiAnalysis}&quot;
-            </p>
+            <blockquote 
+              className="text-gold-200/80 text-sm leading-relaxed italic border-l-2 border-gold-500/30 pl-4"
+              aria-label="AI-generated dream analysis"
+            >
+              {dream.aiAnalysis}
+            </blockquote>
           </div>
         )}
       </div>
