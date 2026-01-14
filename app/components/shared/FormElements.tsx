@@ -362,7 +362,28 @@ export function Select({
   );
 }
 
-// Tag Input for multiple tags
+/**
+ * TagInput - A component for managing multiple tags
+ * 
+ * Features:
+ * - Add tags by pressing Enter
+ * - Remove tags with backspace or click
+ * - Visual badge display of tags
+ * - Prevents duplicate tags
+ * - Keyboard navigation support
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <TagInput
+ *   label="Tags"
+ *   tags={dreamTags}
+ *   onAdd={(tag) => setDreamTags([...dreamTags, tag])}
+ *   onRemove={(tag) => setDreamTags(dreamTags.filter(t => t !== tag))}
+ *   placeholder="Add a tag..."
+ * />
+ * ```
+ */
 export function TagInput({
   label,
   tags,
@@ -430,7 +451,31 @@ export function TagInput({
   );
 }
 
-// Slider
+/**
+ * Slider - A range input slider component
+ * 
+ * Features:
+ * - Custom styled range slider
+ * - Gold gradient fill
+ * - Draggable thumb with glow effect
+ * - Optional value display
+ * - Configurable min, max, and step values
+ * - Visual progress indicator
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Slider
+ *   label="Lucidity Level"
+ *   value={lucidity}
+ *   onChange={setLucidity}
+ *   min={0}
+ *   max={100}
+ *   step={5}
+ *   showValue
+ * />
+ * ```
+ */
 export function Slider({
   label,
   value,
