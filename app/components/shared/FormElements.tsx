@@ -74,6 +74,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               error && "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20",
               className
             )}
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? `${props.id}-error` : hint ? `${props.id}-hint` : undefined}
             {...props}
           />
           {rightIcon && (
@@ -82,8 +84,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
-        {hint && !error && <p className="mt-2 text-xs text-gold-300/50">{hint}</p>}
+        {error && <p id={`${props.id}-error`} className="mt-2 text-xs text-red-400" role="alert">{error}</p>}
+        {hint && !error && <p id={`${props.id}-hint`} className="mt-2 text-xs text-gold-300/50">{hint}</p>}
       </div>
     );
   }
