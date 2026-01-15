@@ -243,3 +243,55 @@ html {
 .animated-underline:hover::after {
   width: 100%;
 }
+
+/* Accessibility: Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: Focus visible outline */
+:focus-visible {
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 2px;
+}
+
+/* Accessibility: High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --gold-primary: #FFD700;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 1rem 1.5rem;
+  background: var(--gold-primary);
+  color: #050505;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Only add transition if user doesn't prefer reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .skip-link {
+    transition: top 0.3s ease;
+  }
+}
+
+.skip-link:focus {
+  top: 0;
+}
