@@ -44,8 +44,12 @@ tree -L 3 -I 'node_modules|dist|build|__pycache__|.git|venv|.next|target|bin|obj
 cat package.json 2>/dev/null || cat requirements.txt 2>/dev/null || cat go.mod 2>/dev/null
 git log --oneline -10
 git status
-npm outdated 2>/dev/null  # Check for outdated packages
-npm audit 2>/dev/null     # Check for security vulnerabilities
+
+# Check for outdated packages (works with npm/yarn/pnpm)
+npm outdated 2>/dev/null || yarn outdated 2>/dev/null || pnpm outdated 2>/dev/null
+
+# Check for security vulnerabilities
+npm audit 2>/dev/null || yarn audit 2>/dev/null || pnpm audit 2>/dev/null
 ```
 
 ### Web-Specific Analysis Checklist
@@ -562,13 +566,13 @@ export function Navigation() {
 
 ### Core Web Vitals Targets
 ```
-┌──────────────────────────────────────────────────────┐
-│  Metric   │  Good     │  Needs Work  │  Poor         │
-├──────────────────────────────────────────────────────┤
-│  LCP      │  < 2.5s   │  2.5s - 4s   │  > 4s         │
-│  INP      │  < 200ms  │  200ms-500ms │  > 500ms      │
-│  CLS      │  < 0.1    │  0.1 - 0.25  │  > 0.25       │
-└──────────────────────────────────────────────────────┘
+┌─────────┬───────────┬──────────────┬───────────┐
+│ Metric  │ Good      │ Needs Work   │ Poor      │
+├─────────┼───────────┼──────────────┼───────────┤
+│ LCP     │ < 2.5s    │ 2.5s - 4s    │ > 4s      │
+│ INP     │ < 200ms   │ 200ms - 500ms│ > 500ms   │
+│ CLS     │ < 0.1     │ 0.1 - 0.25   │ > 0.25    │
+└─────────┴───────────┴──────────────┴───────────┘
 ```
 
 ### Optimization Strategies
@@ -719,17 +723,24 @@ ROBUST
 ### Security Headers (next.config.js)
 ```javascript
 // next.config.js
+// Note: Avoid 'unsafe-eval' and 'unsafe-inline' in production.
+// Use nonces or hashes for inline scripts/styles for better security.
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value: `
       default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline';
+      script-src 'self';
+      style-src 'self';
       img-src 'self' blob: data: https:;
       font-src 'self';
       connect-src 'self' https://api.example.com;
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
     `.replace(/\s{2,}/g, ' ').trim()
+    // For Next.js with inline styles, you may need nonces:
+    // style-src 'self' 'nonce-${nonce}';
   },
   {
     key: 'X-Frame-Options',
@@ -849,8 +860,8 @@ npm test -- --testPathPattern="<failed_test>"
 # Run accessibility audit
 npx axe-core-cli http://localhost:3000
 
-# Run full test suite
-npm test && npm run lint && npm run type-check
+# Run full test suite with accessibility checks
+npm test && npm run lint && npm run type-check && npm run test:a11y
 
 # Run build
 npm run build
