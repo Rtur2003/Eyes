@@ -283,7 +283,13 @@ html {
   color: #050505;
   font-weight: 600;
   text-decoration: none;
-  transition: top 0.3s ease;
+}
+
+/* Only add transition if user doesn't prefer reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .skip-link {
+    transition: top 0.3s ease;
+  }
 }
 
 .skip-link:focus {
