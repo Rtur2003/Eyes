@@ -24,11 +24,16 @@ export default function RootLayout({
         className="font-sans bg-obsidian text-gold-50 antialiased"
         suppressHydrationWarning
       >
+        {/* Skip link for keyboard navigation - accessibility */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        
         {/* Global background gradient */}
-        <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-900/15 via-obsidian to-obsidian pointer-events-none" />
+        <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-900/15 via-obsidian to-obsidian pointer-events-none" aria-hidden="true" />
         
         {/* Neural mesh pattern */}
-        <div className="fixed inset-0 z-[-1] neural-pattern opacity-30 pointer-events-none" />
+        <div className="fixed inset-0 z-[-1] neural-pattern opacity-30 pointer-events-none" aria-hidden="true" />
         
         {children}
       </body>

@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Brain, Clock, Settings, Construction } from "lucide-react";
 import { GlassCard } from "@/app/components/ui/GlassCard";
 import { CyberButton } from "@/app/components/ui/CyberButton";
+import { ErrorBoundary } from "@/app/components/shared/ErrorBoundary";
 
 // Dynamic import for 3D particles to avoid SSR issues
 const GoldenParticles = dynamic(
@@ -33,7 +34,7 @@ function ComingSoon({ title, icon: Icon }: { title: string; icon: React.ElementT
           This neural pathway is being constructed. Advanced features coming soon.
         </p>
         <div className="flex items-center justify-center gap-2 text-xs text-gold-500/50 mb-6">
-          <Construction size={14} />
+          <Construction size={14} aria-hidden="true" />
           <span>Under Development</span>
         </div>
         <CyberButton variant="ghost" onClick={() => setActiveSection('dashboard')}>
@@ -67,7 +68,9 @@ function ActiveSection() {
         transition={{ duration: 0.3 }}
         className="flex-1 overflow-hidden"
       >
-        {sections[activeSection]}
+        <ErrorBoundary>
+          {sections[activeSection]}
+        </ErrorBoundary>
       </motion.div>
     </AnimatePresence>
   );
@@ -75,7 +78,11 @@ function ActiveSection() {
 
 export default function AurumNexus() {
   return (
-    <main className="relative min-h-screen w-full flex overflow-hidden bg-obsidian">
+    <main 
+      id="main-content"
+      className="relative min-h-screen w-full flex overflow-hidden bg-obsidian"
+      aria-label="Aurum Nexus Dream Journal Application"
+    >
       {/* 3D Particle Background */}
       <GoldenParticles />
       
