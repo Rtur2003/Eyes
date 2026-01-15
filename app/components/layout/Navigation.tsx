@@ -42,6 +42,8 @@ export function Sidebar() {
     <motion.aside
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
+      aria-label="Main navigation"
+      role="navigation"
       className={cn(
         "relative h-screen bg-obsidian-card/50 backdrop-blur-xl",
         "border-r border-gold-500/10 flex flex-col",
@@ -97,6 +99,8 @@ export function Sidebar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * index }}
                 onClick={() => setActiveSection(item.id)}
+                aria-label={`Navigate to ${item.label}`}
+                aria-current={isActive ? 'page' : undefined}
                 className={cn(
                   "relative w-full flex items-center gap-3 px-3 py-3 rounded-lg",
                   "transition-all duration-300 group",
@@ -207,6 +211,8 @@ export function Sidebar() {
       {/* Collapse Toggle */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
+        aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        aria-expanded={!isCollapsed}
         className={cn(
           "absolute -right-3 top-1/2 -translate-y-1/2 z-50",
           "w-6 h-6 rounded-full bg-obsidian-card border border-gold-500/20",
@@ -221,13 +227,19 @@ export function Sidebar() {
   );
 }
 
-// Top header for mobile or secondary nav
+/**
+ * Top header for mobile or secondary navigation
+ * Displays current section name and quick stats
+ */
 export function Header() {
   const { activeSection, stats } = useDreamStore();
   const currentNav = navItems.find(item => item.id === activeSection);
 
   return (
-    <header className="h-16 px-6 flex items-center justify-between border-b border-gold-500/10 bg-obsidian-card/30 backdrop-blur-md">
+    <header 
+      className="h-16 px-6 flex items-center justify-between border-b border-gold-500/10 bg-obsidian-card/30 backdrop-blur-md"
+      role="banner"
+    >
       <div>
         <h2 className="text-xl font-serif text-gold-100">{currentNav?.label}</h2>
         <p className="text-xs text-gold-300/50">{currentNav?.description}</p>

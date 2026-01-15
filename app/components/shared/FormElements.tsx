@@ -5,21 +5,58 @@ import { motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useState, forwardRef } from "react";
 
-// Text Input
+/**
+ * Props for the Input component
+ * @interface InputProps
+ * @extends {React.InputHTMLAttributes<HTMLInputElement>}
+ */
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  /** Optional label displayed above the input */
   label?: string;
+  /** Error message to display below input */
   error?: string;
+  /** Hint text displayed below input when no error */
   hint?: string;
+  /** Icon displayed on the left side */
   leftIcon?: React.ReactNode;
+  /** Icon displayed on the right side */
   rightIcon?: React.ReactNode;
 }
 
+/**
+ * Input - A styled text input component
+ * 
+ * Features:
+ * - Optional label, error, and hint text
+ * - Support for left and right icons
+ * - Focus and hover states with gold theme
+ * - Error state styling
+ * - Smooth transitions
+ * - Glass-morphism background
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Input
+ *   label="Dream Title"
+ *   placeholder="Enter a title..."
+ *   leftIcon={<Sparkles size={16} />}
+ *   error={errors.title}
+ *   hint="Give your dream a memorable name"
+ * />
+ * ```
+ */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, hint, leftIcon, rightIcon, ...props }, ref) => {
+    // Generate a unique ID if not provided for accessibility
+    const inputId = props.id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    const errorId = `${inputId}-error`;
+    const hintId = `${inputId}-hint`;
+    
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-xs font-sans uppercase tracking-widest text-gold-300/60 mb-2">
+          <label htmlFor={inputId} className="block text-xs font-sans uppercase tracking-widest text-gold-300/60 mb-2">
             {label}
           </label>
         )}
@@ -31,6 +68,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
+            id={inputId}
             className={cn(
               "w-full bg-obsidian-surface/50 border border-gold-500/20 rounded-lg",
               "px-4 py-3 text-gold-50 placeholder:text-gold-300/30",
@@ -42,6 +80,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               error && "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20",
               className
             )}
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? errorId : hint ? hintId : undefined}
             {...props}
           />
           {rightIcon && (
@@ -50,8 +90,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
-        {hint && !error && <p className="mt-2 text-xs text-gold-300/50">{hint}</p>}
+        {error && <p id={errorId} className="mt-2 text-xs text-red-400" role="alert">{error}</p>}
+        {hint && !error && <p id={hintId} className="mt-2 text-xs text-gold-300/50">{hint}</p>}
       </div>
     );
   }
@@ -59,7 +99,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = "Input";
 
-// Search Input
+/**
+ * SearchInput - A specialized input for search functionality
+ * 
+ * Features:
+ * - Dedicated search icon on the left
+ * - Clear button when input has value
+ * - Optimized for search UX
+ * - Gold-themed styling
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <SearchInput
+ *   value={searchQuery}
+ *   onChange={setSearchQuery}
+ *   onClear={() => setSearchQuery('')}
+ *   placeholder="Search dreams..."
+ * />
+ * ```
+ */
 export function SearchInput({
   value,
   onChange,
@@ -100,13 +159,42 @@ export function SearchInput({
   );
 }
 
-// Textarea
+/**
+ * Props for the Textarea component
+ * @interface TextareaProps
+ * @extends {React.TextareaHTMLAttributes<HTMLTextAreaElement>}
+ */
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Optional label displayed above the textarea */
   label?: string;
+  /** Error message to display below textarea */
   error?: string;
+  /** Hint text displayed below textarea when no error */
   hint?: string;
 }
 
+/**
+ * Textarea - A styled multi-line text input component
+ * 
+ * Features:
+ * - Multi-line text input
+ * - Optional label, error, and hint text
+ * - Minimum height of 120px
+ * - Resize disabled for consistent layout
+ * - Focus and hover states with gold theme
+ * - Error state styling
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Textarea
+ *   label="Dream Description"
+ *   placeholder="Describe your dream in detail..."
+ *   rows={6}
+ *   error={errors.description}
+ * />
+ * ```
+ */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, label, error, hint, ...props }, ref) => {
     return (
@@ -138,23 +226,63 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = "Textarea";
 
-// Select
+/**
+ * SelectOption - Type definition for select dropdown options
+ * @interface SelectOption
+ */
 interface SelectOption {
+  /** Value of the option */
   value: string;
+  /** Display label for the option */
   label: string;
+  /** Optional color for visual indication */
   color?: string;
 }
 
+/**
+ * Props for the Select component
+ * @interface SelectProps
+ */
 interface SelectProps {
+  /** Optional label displayed above the select */
   label?: string;
+  /** Array of selectable options */
   options: SelectOption[];
+  /** Currently selected value */
   value: string;
+  /** Callback when selection changes */
   onChange: (value: string) => void;
+  /** Placeholder text when no option is selected */
   placeholder?: string;
+  /** Error message to display */
   error?: string;
+  /** Additional CSS classes */
   className?: string;
 }
 
+/**
+ * Select - A custom styled dropdown select component
+ * 
+ * Features:
+ * - Custom dropdown with smooth animations
+ * - Optional color indicators for options
+ * - Keyboard accessible
+ * - Click outside to close
+ * - Gold-themed styling
+ * - Error state support
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Select
+ *   label="Dream Type"
+ *   value={dreamType}
+ *   onChange={setDreamType}
+ *   options={dreamTypeOptions}
+ *   placeholder="Select dream type..."
+ * />
+ * ```
+ */
 export function Select({
   label,
   options,
@@ -242,7 +370,28 @@ export function Select({
   );
 }
 
-// Tag Input for multiple tags
+/**
+ * TagInput - A component for managing multiple tags
+ * 
+ * Features:
+ * - Add tags by pressing Enter
+ * - Remove tags with backspace or click
+ * - Visual badge display of tags
+ * - Prevents duplicate tags
+ * - Keyboard navigation support
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <TagInput
+ *   label="Tags"
+ *   tags={dreamTags}
+ *   onAdd={(tag) => setDreamTags([...dreamTags, tag])}
+ *   onRemove={(tag) => setDreamTags(dreamTags.filter(t => t !== tag))}
+ *   placeholder="Add a tag..."
+ * />
+ * ```
+ */
 export function TagInput({
   label,
   tags,
@@ -310,7 +459,31 @@ export function TagInput({
   );
 }
 
-// Slider
+/**
+ * Slider - A range input slider component
+ * 
+ * Features:
+ * - Custom styled range slider
+ * - Gold gradient fill
+ * - Draggable thumb with glow effect
+ * - Optional value display
+ * - Configurable min, max, and step values
+ * - Visual progress indicator
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <Slider
+ *   label="Lucidity Level"
+ *   value={lucidity}
+ *   onChange={setLucidity}
+ *   min={0}
+ *   max={100}
+ *   step={5}
+ *   showValue
+ * />
+ * ```
+ */
 export function Slider({
   label,
   value,

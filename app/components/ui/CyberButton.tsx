@@ -4,14 +4,28 @@ import { ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/app/lib/utils";
 import { motion } from "framer-motion";
 
+/**
+ * Props for the CyberButton component
+ * @interface CyberButtonProps
+ * @extends {ButtonHTMLAttributes<HTMLButtonElement>}
+ */
 interface CyberButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Visual style variant of the button */
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success';
+  /** Size of the button */
   size?: 'sm' | 'md' | 'lg';
+  /** Show loading spinner and disable interaction */
   isLoading?: boolean;
+  /** Icon to display on the left side */
   leftIcon?: React.ReactNode;
+  /** Icon to display on the right side */
   rightIcon?: React.ReactNode;
 }
 
+/**
+ * Style variants for CyberButton component
+ * Maps variant names to Tailwind CSS classes
+ */
 const variants = {
   primary: "bg-gold-500/10 text-gold-400 border-gold-500/50 hover:bg-gold-500/20 hover:text-gold-200 hover:border-gold-400 hover:shadow-glow-gold",
   secondary: "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20",
@@ -20,12 +34,42 @@ const variants = {
   success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 hover:border-emerald-500/50",
 };
 
+/**
+ * Size variants for CyberButton component
+ * Defines padding and text size for different button sizes
+ */
 const sizes = {
   sm: "px-4 py-2 text-[10px]",
   md: "px-6 py-3 text-xs",
   lg: "px-8 py-4 text-sm",
 };
 
+/**
+ * CyberButton - A futuristic styled button component
+ * 
+ * Features:
+ * - Multiple style variants (primary, secondary, ghost, danger, success)
+ * - Three size options (sm, md, lg)
+ * - Loading state with spinner animation
+ * - Support for left and right icons
+ * - Shimmer effect on hover
+ * - Bottom line accent animation
+ * - Disabled state handling
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <CyberButton 
+ *   variant="primary" 
+ *   size="md"
+ *   isLoading={false}
+ *   leftIcon={<Save size={16} />}
+ *   onClick={handleSave}
+ * >
+ *   Save Dream
+ * </CyberButton>
+ * ```
+ */
 export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
   ({ 
     className, 
@@ -78,7 +122,20 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
 
 CyberButton.displayName = "CyberButton";
 
-// Icon Button variant
+/**
+ * IconButton - A compact button variant for displaying icons
+ * 
+ * Optimized for icon-only interactions with circular styling.
+ * Includes hover effects and multiple visual variants.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <IconButton variant="glow">
+ *   <Heart size={20} />
+ * </IconButton>
+ * ```
+ */
 export const IconButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement> & { 
   variant?: 'default' | 'ghost' | 'glow';
 }>(({ className, variant = 'default', children, ...props }, ref) => {
